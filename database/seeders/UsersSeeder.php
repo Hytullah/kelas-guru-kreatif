@@ -38,7 +38,7 @@ class UsersSeeder extends Seeder
             [
                 'nama' => 'GK402023001',
                 'email' => 'GK402023001',
-                'password' => bcrypt('sulnana001'),
+                'password' => bcrypt('sulnanaa001'),
                 'phoneNumber' => '08123456830',
                 'role' => 'user'
             ],

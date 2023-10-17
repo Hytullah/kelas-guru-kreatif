@@ -43,9 +43,12 @@
     <header id="header" class="fixed-top d-flex align-items-center">
         <div class="container d-flex align-items-center justify-content-between">
             <div class="logo">
-                <h1 class="text-light">
-                    <a href="{{ url('/') }}"><span>Guru Kreatif 4.0</span></a>
-                </h1>
+                <h4 class="text-light">
+                    <a href="{{ url('/') }}">
+                        <span><img src="assets/img/logogk.png" alt=""></span>
+                        <span style="color:#7a6960;">&nbsp;Guru Kreatif 4.0</span>
+                    </a>
+                </h4>
                 <!-- Uncomment below if you prefer to use an image logo -->
                 <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
             </div>

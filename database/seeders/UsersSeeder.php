@@ -14,34 +14,14 @@ class UsersSeeder extends Seeder
     public function run(): void
     {
         $userData = [
+
             [
-                'nama' => 'admin',
-                'email' => 'admin@gmail.com',
-                'password' => bcrypt('admin'),
-                'phoneNumber' => '087805982176',
-                'role' => 'admin'
-            ],
-            [
-                'nama' => 'usertes',
-                'email' => 'user@gmail.com',
-                'password' => bcrypt('user'),
-                'phoneNumber' => '081234567890',
+                'nama' => 'Marini muthalib',
+                'email' => 'GK3202983',
+                'password' =>  bcrypt('sulnana993'),
+                'phoneNumber' => '82345124508',
                 'role' => 'user'
-            ],
-            [
-                'nama' => 'userdua',
-                'email' => 'user2@gmail.com',
-                'password' => bcrypt('user2'),
-                'phoneNumber' => '08123456830',
-                'role' => 'user'
-            ],
-            [
-                'nama' => 'GK402023001',
-                'email' => 'GK402023001',
-                'password' => bcrypt('sulnanaa001'),
-                'phoneNumber' => '08123456830',
-                'role' => 'user'
-            ],
+            ]
 
         ];
 
@@ -51,3 +31,26 @@ class UsersSeeder extends Seeder
         }
     }
 }
+
+// class UsersSeeder extends Seeder
+// {
+//     /**
+//      * Run the database seeds.
+//      */
+//     public function run(): void
+//     {
+//         $startId = 809;
+//         $endId = 863;
+//         $passStart  = 806;
+//         for ($userId = $startId; $userId <= $endId; $userId++) {
+//             $user = User::find($userId);
+//             if ($user) {
+//                 $user->password ='sulnana'.$passStart;
+//                 $user->save();
+//                 $passStart++;
+//             } else {
+
+//             }
+//         }
+//     }
+// }

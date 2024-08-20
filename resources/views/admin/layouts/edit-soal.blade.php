@@ -55,31 +55,25 @@
                                 <label for="kategoriKegiatan">Jawaban</label><br>
 
                                 <label>
-                                    <input type="radio" name="jawaban" value="a"
-                                        {{ $soalp3k->jawaban === 'a' ? 'checked' : '' }}>
-                                    a
+                                    <input type="radio" name="jawaban" value="a"> a
                                     <input type="text" name="jawaban_a" value="{{ $soalp3k->jawaban_a }}" required>
                                 </label><br>
 
                                 <label>
-                                    <input type="radio" name="jawaban" value="b"
-                                        {{ $soalp3k->jawaban === 'b' ? 'checked' : '' }}> b
+                                    <input type="radio" name="jawaban" value="b"> b
                                     <input type="text" name="jawaban_b" value="{{ $soalp3k->jawaban_b }}" required>
                                 </label><br>
 
                                 <label>
-                                    <input type="radio" name="jawaban" value="c"
-                                        {{ $soalp3k->jawaban === 'c' ? 'checked' : '' }}> c
+                                    <input type="radio" name="jawaban" value="c"> c
                                     <input type="text" name="jawaban_c" value="{{ $soalp3k->jawaban_c }}" required>
                                 </label><br>
                                 <label>
-                                    <input type="radio" name="jawaban" value="d"
-                                        {{ $soalp3k->jawaban === 'd' ? 'checked' : '' }}> d
+                                    <input type="radio" name="jawaban" value="d"> d
                                     <input type="text" name="jawaban_d" value="{{ $soalp3k->jawaban_d }}" required>
                                 </label><br>
                                 <label>
-                                    <input type="radio" name="jawaban" value="e"
-                                        {{ $soalp3k->jawaban === 'e' ? 'checked' : '' }}> e
+                                    <input type="radio" name="jawaban" value="e"> e
                                     <input type="text" name="jawaban_e" value="{{ $soalp3k->jawaban_e }}">
                                 </label><br>
                             </div>

@@ -17,7 +17,7 @@
                         <th>Jenis Soal</th>
                         <th>Soal</th>
                         <th>Kunci Jawaban</th>
-                        <th style="width: 100px">Aksi</th>
+                        <th style="width: 40px">Aksi</th>
                     </tr>
                 </thead>
                 @if ($dtPppk->isEmpty())

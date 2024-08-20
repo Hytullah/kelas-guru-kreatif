@@ -16,12 +16,29 @@ class UsersSeeder extends Seeder
         $userData = [
 
             [
+<<<<<<< HEAD
                 'nama' => 'Marini muthalib',
                 'email' => 'GK3202983',
                 'password' =>  bcrypt('sulnana993'),
                 'phoneNumber' => '82345124508',
                 'role' => 'user'
             ]
+=======
+                'nama' => 'usertes',
+                'email' => 'user@gmail.com',
+                'password' => bcrypt('user'),
+                'phoneNumber' => '081234567890',
+                'role' => 'user'
+            ],
+            [
+                'nama' => 'userdua',
+                'email' => 'user2@gmail.com',
+                'password' => bcrypt('user2'),
+                'phoneNumber' => '08123456830',
+                'role' => 'user'
+            ],
+     
+>>>>>>> 0a87008b2f527ae8c14dadab901bd7a6f95e2cfe
 
         ];
 

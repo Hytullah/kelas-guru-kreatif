@@ -15,6 +15,7 @@
                     <tr>
                         <th style="width: 10px">No.</th>
                         <th>Jenis Soal</th>
+                        <th>Paket</th>
                         <th>Soal</th>
                         <th>Kunci Jawaban</th>
                         <th style="width: 40px">Aksi</th>
@@ -32,6 +33,7 @@
                         <tbody>
                             <td>{{ $item->no }}</td>
                             <td>{{ $item->jenis_soal }}</td>
+                            <td>{{ $item->paket }}</td>
                             <td>{!! $item->soal !!}</td>
                             <td>{{ $item->jawaban }}</td>
                             <td>

@@ -63,13 +63,13 @@
                                 <a href="{{ url('datapppk') }}" class="nav-link "
                                     style="color:#7a6960; font-family: Raleway, sans-serif;">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>PPPK</p>
+                                    <p>SOAL</p>
                                 </a>
                             @elseif (Auth::check() && Auth::user()->role === 'user')
                                 <a href="{{ url('table') }}" class="nav-link "
                                     style="color:#7a6960; font-family: Raleway, sans-serif;">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>PPPK</p>
+                                    <p>SOAL</p>
                                 </a>
                             @endif
                         </li>

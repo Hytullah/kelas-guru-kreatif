@@ -11,46 +11,38 @@
                     <tr>
                         <th style="width: 10px">No.</th>
                         <th>Soal</th>
-                        <th>Progress</th>
-                        <th style="width: 40px">#</th>
+                        {{-- <th>Progress</th> --}}
+                        <th style="width: 220px">Pilihan Soal</th>
                     </tr>
                 </thead>
                 <tbody>
-
                     <tr>
                         <td>1.</td>
-                        <td>Soal PPPK 1</td>
-                        <td>
+                        <td>Soal</td>
+                        {{-- <td>
                             <div class="progress progress-xs progress-striped active">
                                 <div class="progress-bar bg-primary" style="width: 30%"></div>
                             </div>
-                        </td>
-                        <td style="width:220px;">
-                            {{-- <span class="badge bg-primary">30%</span> --}}
-                            <a href="{{ route('soal') }}">
-                                <button type="button" class="btn btn-primary" data-toggle="collapse"
-                                    data-target="#collapseExample">
-                                    Masuk
-                                </button>
-                            </a>
-                            {{-- <div id="collapseExample" class="collapse mt-2 p-2"
-                                style="width:200px; border:1px solid grey; border-radius:4px;">
-                                <form action="forms/contact.php" method="post" role="form" class="info">
-                                    <div class="mb-3 d-flex flex-column ml-2">
-                                        <label for="nama" class="form-label">Masukkan Token:</label>
-                                        <input type="text" class="form-control" id="nama"
-                                            aria-describedby="emailHelp"><button type="button"
-                                            class="btn btn-secondary mt-2"><a href="{{ route('soal') }}">Mulai</a></button>
+                        </td> --}}
+                        <td style="width: 220px;">
+                            <form action="{{ route('soal') }}" method="GET">
+                                <div class="d-flex">
+                                    <select name="paket" class="form-control mr-2" required>
+                                        {{-- @foreach ($paketOptions as $item) --}}
+                                        <option value="paket 1">Paket 1</option>
+                                        <option value="paket 2">Paket 2</option>
+                                        {{-- @endforeach --}}
 
-                                    </div>
-                                </form>
-
-                            </div> --}}
+                                    </select>
+                                    <button type="submit" class="btn btn-primary">Masuk</button>
+                                </div>
+                            </form>
                         </td>
                     </tr>
-
                 </tbody>
             </table>
+
+
         </div>
 
     </div>

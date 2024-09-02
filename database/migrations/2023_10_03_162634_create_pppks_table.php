@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('pppk', function (Blueprint $table) {
             $table->id();
+            $table->string('paket');
             $table->bigInteger('no');
             $table->string('jenis_soal');
             $table->longtext('soal');

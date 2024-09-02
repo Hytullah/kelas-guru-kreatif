@@ -128,7 +128,7 @@
                             $totalSoal = $totalSoal;
                             ?>
 
-                            <a href="?page={{ $page - 1 }}">
+                            <a href="?page={{ $page - 1 }}&paket={{ $paket }}">
                                 <button type="button" id="kirim-jawaban-button"
                                     class="btn btn-secondary btn-sm {{ $page <= 1 ? 'd-none' : '' }}">
                                     Halaman Sebelumnya
@@ -136,20 +136,12 @@
                             </a>
 
                             @if ($page < $totalSoal)
-                                <a href="?page={{ $page + 1 }}">
+                                <a href="?page={{ $page + 1 }}&paket={{ $paket }}">
                                     <button type="button" class="btn btn-primary btn-sm">
                                         Halaman Selanjutnya
                                     </button>
                                 </a>
                             @else
-                                {{-- <a href="{{ url('beranda') }}">
-                                    <button type="button" id="clearJawabanHistory"
-                                        class="btn btn-success btn-sm {{ $page <= 1 ? 'd-none' : '' }}"
-                                        aria-label="Selesai" onclick="clearJawabanHistory()">
-                                        Selesai
-                                    </button>
-
-                                </a> --}}
                                 <a href="#" onclick="konfirmasiSelesai(); return false;">
                                     <button type="button" class="btn btn-success btn-sm {{ $page <= 1 ? 'd-none' : '' }}"
                                         aria-label="Selesai">

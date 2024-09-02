@@ -30,6 +30,7 @@ class AdminController extends Controller
     {
         Pppk::create([
             'no' => $request->no,
+            'paket' => $request->paket,
             'jenis_soal' => $request->jenis_soal,
             'soal' => $request->soal,
             'jawaban' => $request->jawaban,

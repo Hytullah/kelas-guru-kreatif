@@ -19,23 +19,43 @@ class UsersController extends Controller
     }
 
 
+    // public function soal(Request $request)
+    // {
+    //     $totalSoal = Pppk::count();
+    //     $dtSoal = Pppk::paginate(1);
+    //     $allSoal = Pppk::all();
+    //     $currentPage = $request->get('page', 1);
+    //     $jawabanTerkirim = Jawab::where('user_id', auth()->user()->id)->pluck('soal_id')->toArray();
+
+    //     // Memuat jawaban pengguna yang sudah ada dalam session
+    //     $jawabanUser = Session::get('jawaban_user', []);
+
+    //     return view('layouts.soal', compact('dtSoal', 'totalSoal', 'jawabanTerkirim', 'jawabanUser', 'allSoal', 'currentPage'));
+    // }
+
+
     public function soal(Request $request)
     {
-        $totalSoal = Pppk::count();
-        $dtSoal = Pppk::paginate(1);
-        $allSoal = Pppk::all();
-        $currentPage = $request->get('page', 1);
+        $paketOptions = Pppk::select('paket')->distinct()->get();
 
+        $paket = $request->get('paket', "paket 1");
+
+        // Filter soal berdasarkan paket yang dipilih
+        $totalSoal = Pppk::where('paket', $paket)->count();
+        $dtSoal = Pppk::where('paket', $paket)->paginate(1);
+        $allSoal = Pppk::where('paket', $paket)->get();
+        $currentPage = $request->get('page', 1);
         $jawabanTerkirim = Jawab::where('user_id', auth()->user()->id)->pluck('soal_id')->toArray();
 
         // Memuat jawaban pengguna yang sudah ada dalam session
         $jawabanUser = Session::get('jawaban_user', []);
 
-
-
-
-        return view('layouts.soal', compact('dtSoal', 'totalSoal', 'jawabanTerkirim', 'jawabanUser', 'allSoal', 'currentPage'));
+        return view('layouts.soal', compact('dtSoal', 'totalSoal', 'jawabanTerkirim', 'jawabanUser', 'allSoal', 'currentPage', 'paket', 'paketOptions'));
     }
+
+
+
+
 
 
     public function store(Request $request)

@@ -39,6 +39,10 @@
                         <form action="{{ route('simpansoal') }}" method="post" class="">
                             @csrf
                             <div class="form-group">
+                                <label for="jenis_soal">Paket</label>
+                                <input type="text" name="paket" class="form-control" required>
+                            </div>
+                            <div class="form-group">
                                 <label for="no">No.</label>
                                 <input type="number" name="no" class="form-control" required>
                             </div>

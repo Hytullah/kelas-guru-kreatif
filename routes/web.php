@@ -31,7 +31,7 @@ Route::middleware(['guest'])->group(function () {
     })->name('session.register');
 });
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'user_guru'])->group(function () {
 
     Route::post('logout', [SessionController::class, 'logout'])->name('logout');
 
@@ -42,6 +42,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('soal', [UsersController::class, 'soal'])->name('soal');
 
     Route::post('store-jawaban', [UsersController::class, 'store'])->name('store-jawaban');
+
+    Route::post('/update-answer-status', 'UsersController@updateAnswerStatus');
 
     Route::get('selesai', [UsersController::class, 'selesai'])->name('selesai');
 
@@ -77,4 +79,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/table', function () {
         return view('layouts.table');
     })->name('table');
+
+    // Route::middleware(['auth', 'user_guru'])->group(function () {
+    //     // Route::get('soal-teknis', [UsersController::class, 'soalTeknis'])->name('soal-teknis');
+    //     Route::get('soal', [UsersController::class, 'soal'])->name('soal');
+    // });
 });

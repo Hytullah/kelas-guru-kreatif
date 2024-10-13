@@ -32,13 +32,23 @@
             /* background-color: gray; */
             /* Latar belakang ketika pertanyaan telah dijawab */
         }
+
+
+        /* Sembunyikan navbar dan sidebar dengan CSS */
+        #navbar,
+        #sidebar {
+            display: none;
+        }
     </style>
     <section>
         <div class="row d-flex flex-column mb-2 mt-2 p-3">
             <div class="row" style="border:1px solid grey;background-color: #e9ecef;">
                 <div class="col-sm-8 pt-4 pb-4">
-
-                    <h3 class="m-0">SELEKSI PPPK 2023 JABATAN FUNGSIONAL GURU</h3>
+                    @if ($paket === 'paket teknis' && $paket === 'paket teknis2')
+                        <h3 class="m-0">SELEKSI PPPK TAHUN 2024 UNTUK TENAGA TEKNIS</h3>
+                    @elseif ($paket !== 'paket teknis' && $paket !== 'paket teknis2')
+                        <h3 class="m-0">SELEKSI PPPK 2024 JABATAN FUNGSIONAL GURU</h3>
+                    @endif
                 </div>
                 <div class="col-sm-8">
                     {{-- <ol class="breadcrumb float-sm-left">
@@ -83,7 +93,7 @@
 
                                 </div>
                                 <div class="info p-3" style="background-color: rgb(200, 227, 254); width: 100%;">
-                                    <div class="info">
+                                    <div class="info text-bold">
                                         {!! $item->soal !!}
                                     </div>
                                     <div class="info">
@@ -103,7 +113,8 @@
                                         <input type="radio" name="jawaban[{{ $item->id }}]" value="d"
                                             @if ($item->id && Session::has('jawaban_user.' . $item->id) && Session::get('jawaban_user.' . $item->id) === 'd') checked @endif>
                                         {{ $item->jawaban_d }}<br>
-                                        @if ($item->no <= 90)
+                                        {{-- @if ($item->no <= 90) --}}
+                                        @if ($paket !== 'paket teknis' && $paket !== 'paket teknis2' && !empty($item->jawaban_e))
                                             <input type="radio" name="jawaban[{{ $item->id }}]" value="e"
                                                 @if ($item->id && Session::has('jawaban_user.' . $item->id) && Session::get('jawaban_user.' . $item->id) === 'e') checked @endif>
                                             {{ $item->jawaban_e }}<br>
@@ -122,28 +133,31 @@
                         <div class="info d-flex flex-row justify-content-between mt-3" style="width:100%;">
                             <?php
                             // Halaman yang diminta oleh pengguna (gunakan input dari pengguna atau atur ke halaman default)
-                            $page = request()->get('page', 1);
+                            // $page = request()->get('page', 1);
+                            $nomor = request()->get('nomor', 1);
                             
                             // Total soal
                             $totalSoal = $totalSoal;
                             ?>
 
-                            <a href="?page={{ $page - 1 }}&paket={{ $paket }}">
+
+                            {{-- <a href="{{ route('soal', ['paket' => $paket, 'nomor' => $i]) }}"> --}}
+                            <a href="?nomor={{ $nomor - 1 }}&paket={{ $paket }}">
                                 <button type="button" id="kirim-jawaban-button"
-                                    class="btn btn-secondary btn-sm {{ $page <= 1 ? 'd-none' : '' }}">
+                                    class="btn btn-secondary btn-sm {{ $nomor <= 1 ? 'd-none' : '' }}">
                                     Halaman Sebelumnya
                                 </button>
                             </a>
 
-                            @if ($page < $totalSoal)
-                                <a href="?page={{ $page + 1 }}&paket={{ $paket }}">
+                            @if ($nomor < $totalSoal)
+                                <a href="?nomor={{ $nomor + 1 }}&paket={{ $paket }}">
                                     <button type="button" class="btn btn-primary btn-sm">
                                         Halaman Selanjutnya
                                     </button>
                                 </a>
                             @else
                                 <a href="#" onclick="konfirmasiSelesai(); return false;">
-                                    <button type="button" class="btn btn-success btn-sm {{ $page <= 1 ? 'd-none' : '' }}"
+                                    <button type="button" class="btn btn-success btn-sm {{ $nomor <= 1 ? 'd-none' : '' }}"
                                         aria-label="Selesai">
                                         Selesai
                                     </button>
@@ -161,104 +175,91 @@
                 </div>
 
                 {{-- saya ingin halaman dibawah ini memiliki background color jika jawaban sudah dipilih dan tidak ada background color jika belum memilih jawaban --}}
-                <div class="jenis-soal mt-3">
-                    <span style="font-size: 150%;">Teknis</span>
-                    <div class="info grid text-center d-flex flex-wrap flex-row">
-                        @php
-                            $totalData = count($allSoal);
-                        @endphp
-                        @for ($i = 1; $i <= 90; $i++)
-                            @php
-                                // Memeriksa apakah pertanyaan ini sudah dijawab dalam sesi
-                                $isAnswered = Session::has('jawaban_user.' . $i);
-                                $backgroundColor = $isAnswered ? 'gray' : 'white';
-                            @endphp
 
-                            <a href="?page={{ $i }}">
-                                <div class="box"
-                                    onclick="updateAnswerBackground({{ $i }}, {{ $i }})">
-                                    <div class="number">{{ $i }}</div>
-                                    <div class="color" style="background-color: {{ $backgroundColor }}">&nbsp;</div>
-                                </div>
-                            </a>
-                        @endfor
+                @if ($jumlahTeknis > 0)
+                    <div class="jenis-soal mt-3">
+                        <span style="font-size: 150%;">Teknis</span>
+                        <div class="info grid text-center d-flex flex-wrap flex-row">
+                            @for ($i = 1; $i <= $jumlahTeknis; $i++)
+                                @php
+                                    $isAnswered = Session::has('jawaban_user.' . $i);
+                                    $backgroundColor = $isAnswered ? 'gray' : 'white';
+
+                                @endphp
+                                <a href="{{ route('soal', ['paket' => $paket, 'nomor' => $i]) }}">
+                                    <div class="box"
+                                        onclick="updateAnswerBackground({{ $i }}, {{ $i }})">
+                                        <div class="number">{{ $i }}</div>
+                                        <div class="color" style="background-color: {{ $backgroundColor }}">&nbsp;</div>
+                                    </div>
+                                </a>
+                            @endfor
+                        </div>
                     </div>
-                </div>
+                @endif
 
-                <div class="jenis-soal mt-3">
-                    <span style="font-size: 150%;">Manajerial</span>
-                    <div class="info grid text-center d-flex flex-wrap flex-row">
-                        @php
-                            $totalData = count($allSoal);
-                        @endphp
-                        @for ($i = 91; $i <= 115; $i++)
-                            {{-- Ubah rentang nomor soal yang ingin Anda masukkan ke kategori Manajerial --}}
-                            @php
-                                // Memeriksa apakah pertanyaan ini sudah dijawab dalam sesi
-                                $isAnswered = Session::has('jawaban_user.' . $i);
-                                $backgroundColor = $isAnswered ? 'gray' : 'white';
-                            @endphp
-
-                            <a href="?page={{ $i }}">
-                                <div class="box"
-                                    onclick="updateAnswerBackground({{ $i }}, {{ $i }})">
-                                    <div class="number">{{ $i }}</div>
-                                    <div class="color" style="background-color: {{ $backgroundColor }}">&nbsp;</div>
-                                </div>
-                            </a>
-                        @endfor
+                @if ($jumlahManajerial > 0)
+                    <div class="jenis-soal mt-3">
+                        <span style="font-size: 150%;">Manajerial</span>
+                        <div class="info grid text-center d-flex flex-wrap flex-row">
+                            @for ($i = $jumlahTeknis + 1; $i <= $jumlahTeknis + $jumlahManajerial; $i++)
+                                @php
+                                    $isAnswered = Session::has('jawaban_user.' . $i);
+                                    $backgroundColor = $isAnswered ? 'gray' : 'white';
+                                @endphp
+                                <a href="{{ route('soal', ['paket' => $paket, 'nomor' => $i]) }}">
+                                    <div class="box"
+                                        onclick="updateAnswerBackground({{ $i }}, {{ $i }})">
+                                        <div class="number">{{ $i }}</div>
+                                        <div class="color" style="background-color: {{ $backgroundColor }}">&nbsp;</div>
+                                    </div>
+                                </a>
+                            @endfor
+                        </div>
                     </div>
-                </div>
+                @endif
 
-                <div class="jenis-soal mt-3">
-                    <span style="font-size: 150%;">Sosial Kultural</span>
-                    <div class="info grid text-center d-flex flex-wrap flex-row">
-                        @php
-                            $totalData = count($allSoal);
-                        @endphp
-                        @for ($i = 116; $i <= 135; $i++)
-                            {{-- Ubah rentang nomor soal yang ingin Anda masukkan ke kategori Manajerial --}}
-                            @php
-                                // Memeriksa apakah pertanyaan ini sudah dijawab dalam sesi
-                                $isAnswered = Session::has('jawaban_user.' . $i);
-                                $backgroundColor = $isAnswered ? 'gray' : 'white';
-                            @endphp
-
-                            <a href="?page={{ $i }}">
-                                <div class="box"
-                                    onclick="updateAnswerBackground({{ $i }}, {{ $i }})">
-                                    <div class="number">{{ $i }}</div>
-                                    <div class="color" style="background-color: {{ $backgroundColor }}">&nbsp;</div>
-                                </div>
-                            </a>
-                        @endfor
+                @if ($jumlahSosialKultural > 0)
+                    <div class="jenis-soal mt-3">
+                        <span style="font-size: 150%;">Sosiokultural</span>
+                        <div class="info grid text-center d-flex flex-wrap flex-row">
+                            @for ($i = $jumlahTeknis + $jumlahManajerial + 1; $i <= $jumlahTeknis + $jumlahManajerial + $jumlahSosialKultural; $i++)
+                                @php
+                                    $isAnswered = Session::has('jawaban_user.' . $i);
+                                    $backgroundColor = $isAnswered ? 'gray' : 'white';
+                                @endphp
+                                <a href="{{ route('soal', ['paket' => $paket, 'nomor' => $i]) }}">
+                                    <div class="box"
+                                        onclick="updateAnswerBackground({{ $i }}, {{ $i }})">
+                                        <div class="number">{{ $i }}</div>
+                                        <div class="color" style="background-color: {{ $backgroundColor }}">&nbsp;</div>
+                                    </div>
+                                </a>
+                            @endfor
+                        </div>
                     </div>
-                </div>
+                @endif
 
-                <div class="jenis-soal mt-3">
-                    <span style="font-size: 150%;">Wawancara</span>
-                    <div class="info grid text-center d-flex flex-wrap flex-row">
-                        @php
-                            $totalData = count($allSoal);
-                        @endphp
-                        @for ($i = 136; $i <= 145; $i++)
-                            {{-- Ubah rentang nomor soal yang ingin Anda masukkan ke kategori Manajerial --}}
-                            @php
-                                // Memeriksa apakah pertanyaan ini sudah dijawab dalam sesi
-                                $isAnswered = Session::has('jawaban_user.' . $i);
-                                $backgroundColor = $isAnswered ? 'gray' : 'white';
-                            @endphp
-
-                            <a href="?page={{ $i }}">
-                                <div class="box"
-                                    onclick="updateAnswerBackground({{ $i }}, {{ $i }})">
-                                    <div class="number">{{ $i }}</div>
-                                    <div class="color" style="background-color: {{ $backgroundColor }}">&nbsp;</div>
-                                </div>
-                            </a>
-                        @endfor
+                @if ($jumlahWawancara > 0)
+                    <div class="jenis-soal mt-3">
+                        <span style="font-size: 150%;">Wawancara</span>
+                        <div class="info grid text-center d-flex flex-wrap flex-row">
+                            @for ($i = $jumlahTeknis + $jumlahManajerial + $jumlahSosialKultural + 1; $i <= $jumlahTeknis + $jumlahManajerial + $jumlahSosialKultural + $jumlahWawancara; $i++)
+                                @php
+                                    $isAnswered = Session::has('jawaban_user.' . $i);
+                                    $backgroundColor = $isAnswered ? 'gray' : 'white';
+                                @endphp
+                                <a href="{{ route('soal', ['paket' => $paket, 'nomor' => $i]) }}">
+                                    <div class="box"
+                                        onclick="updateAnswerBackground({{ $i }}, {{ $i }})">
+                                        <div class="number">{{ $i }}</div>
+                                        <div class="color" style="background-color: {{ $backgroundColor }}">&nbsp;</div>
+                                    </div>
+                                </a>
+                            @endfor
+                        </div>
                     </div>
-                </div>
+                @endif
 
 
             </div>
@@ -353,7 +354,7 @@
         });
 
         function konfirmasiSelesai() {
-            var confirmation = confirm('Anda yakin ingin menghapus semua jawaban?');
+            var confirmation = confirm('Anda yakin ingin mengirimkan jawaban?');
             if (confirmation) {
                 // Jika pengguna mengonfirmasi, maka lakukan pengalihan
                 window.location.href = "{{ url('selesai') }}?confirmation=confirmed";
@@ -372,6 +373,25 @@
             }
         }
     </script>
+
+    <script>
+        $(document).ready(function() {
+            // Deteksi halaman soal berdasarkan URL
+            var isSoalPage = window.location.href.indexOf('/soal') > -1;
+
+            if (isSoalPage) {
+                // Pastikan navbar dan sidebar tetap tersembunyi jika berada di halaman soal
+                $('#navbar').hide();
+                $('#sidebar').hide();
+            } else {
+                // Tampilkan kembali navbar dan sidebar di halaman lain
+                $('#navbar').show();
+                $('#sidebar').show();
+            }
+        });
+    </script>
+
+
 
     <!-- JavaScript code to automatically submit the form when radio buttons change -->
     {{-- <script>
@@ -488,4 +508,6 @@
             }
         }, 1000); // Perbarui setiap 1 detik
     </script>
+
+
 @endsection

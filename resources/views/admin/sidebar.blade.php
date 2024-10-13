@@ -1,4 +1,4 @@
-<aside class="main-sidebar sidebar-dark-primary elevation-4" style="background-color:white;">
+<aside class="main-sidebar sidebar-dark-primary elevation-4" style="background-color:white;" id="sidebar">
 
     <a href="#" class="brand-link pl-4" style="border-bottom: 1px solid #e7c9ba;background-color: #;">
         {{-- <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
@@ -66,6 +66,12 @@
                                     <p>SOAL</p>
                                 </a>
                             @elseif (Auth::check() && Auth::user()->role === 'user')
+                                <a href="{{ url('table') }}" class="nav-link "
+                                    style="color:#7a6960; font-family: Raleway, sans-serif;">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>SOAL</p>
+                                </a>
+                            @elseif (Auth::check() && Auth::user()->role === 'user_guru')
                                 <a href="{{ url('table') }}" class="nav-link "
                                     style="color:#7a6960; font-family: Raleway, sans-serif;">
                                     <i class="far fa-circle nav-icon"></i>

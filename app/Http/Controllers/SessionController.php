@@ -29,7 +29,7 @@ class SessionController extends Controller
         // dd('berhasil');
 
         if (Auth::attempt($infologin)) {
-            if (Auth::user()->role == 'user') {
+            if (Auth::user()->role == 'user' || Auth::user()->role == 'user_guru') {
                 return redirect('beranda');
             } else if (Auth::user()->role == 'admin') {
                 return redirect('dashboard');

@@ -34,27 +34,69 @@ class UsersController extends Controller
     // }
 
 
+    // public function soal(Request $request)
+    // {
+    //     $paketOptions = Pppk::select('paket')->distinct()->get();
+
+    //     $paket = $request->get('paket', "paket 1");
+
+    //     // Filter soal berdasarkan paket yang dipilih
+    //     $totalSoal = Pppk::where('paket', $paket)->count();
+    //     $dtSoal = Pppk::where('paket', $paket)->paginate(1);
+    //     $allSoal = Pppk::where('paket', $paket)->get();
+    //     $currentPage = $request->get('page', 1);
+    //     $jawabanTerkirim = Jawab::where('user_id', auth()->user()->id)->pluck('soal_id')->toArray();
+
+    //     // Memuat jawaban pengguna yang sudah ada dalam session
+    //     $jawabanUser = Session::get('jawaban_user', []);
+
+    //     return view('layouts.soal', compact('dtSoal', 'totalSoal', 'jawabanTerkirim', 'jawabanUser', 'allSoal', 'currentPage', 'paket', 'paketOptions'));
+    // }
+
+
+
+
+    // public function soalTeknis(Request $request)
+    // {
+    //     $paket = "paket teknis"; // Paket teknis
+    //     $totalSoal = Pppk::where('paket', $paket)->count();
+    //     $nomorSoal = $request->get('nomor', 1);
+    //     $dtSoal = Pppk::where('paket', $paket)
+    //         ->where('no', $nomorSoal)
+    //         ->get();
+    //     $allSoal = Pppk::where('paket', $paket)->get();
+    //     $jawabanTerkirim = Jawab::where('user_id', auth()->user()->id)->pluck('soal_id')->toArray();
+    //     $jawabanUser = Session::get('jawaban_user', []);
+
+    //     return view('layouts.soal', compact('dtSoal', 'totalSoal', 'jawabanTerkirim', 'jawabanUser', 'allSoal', 'nomorSoal', 'paket'));
+    // }
+
     public function soal(Request $request)
     {
         $paketOptions = Pppk::select('paket')->distinct()->get();
-
         $paket = $request->get('paket', "paket 1");
 
+        $jumlahTeknis = Pppk::where('paket', $paket)->where('jenis_soal', 'Teknis')->count();
+        $jumlahManajerial = Pppk::where('paket', $paket)->where('jenis_soal', 'Manajerial')->count();
+        $jumlahSosialKultural = Pppk::where('paket', $paket)->where('jenis_soal', 'Sosiokultural')->count();
+        $jumlahWawancara = Pppk::where('paket', $paket)->where('jenis_soal', 'Wawancara')->count();
         // Filter soal berdasarkan paket yang dipilih
         $totalSoal = Pppk::where('paket', $paket)->count();
-        $dtSoal = Pppk::where('paket', $paket)->paginate(1);
+
+        // Menggunakan nomor soal alih-alih pagination
+        $nomorSoal = $request->get('nomor', 1);
+        $dtSoal = Pppk::where('paket', $paket)
+            ->where('no', $nomorSoal)
+            ->get();
+
         $allSoal = Pppk::where('paket', $paket)->get();
-        $currentPage = $request->get('page', 1);
         $jawabanTerkirim = Jawab::where('user_id', auth()->user()->id)->pluck('soal_id')->toArray();
 
         // Memuat jawaban pengguna yang sudah ada dalam session
         $jawabanUser = Session::get('jawaban_user', []);
 
-        return view('layouts.soal', compact('dtSoal', 'totalSoal', 'jawabanTerkirim', 'jawabanUser', 'allSoal', 'currentPage', 'paket', 'paketOptions'));
+        return view('layouts.soal', compact('dtSoal', 'totalSoal', 'jawabanTerkirim', 'jawabanUser', 'allSoal', 'nomorSoal', 'paket', 'paketOptions', 'jumlahTeknis', 'jumlahManajerial', 'jumlahSosialKultural', 'jumlahWawancara'));
     }
-
-
-
 
 
 

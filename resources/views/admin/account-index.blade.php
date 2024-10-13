@@ -44,8 +44,9 @@
 
         @include('admin.sidebar')
 
-        <div class="content-wrapper" style="color:#7a6960; font-family: Raleway, sans-serif; background-color:#fef8f5;">
-            <div class="container pt-5" data-aos="fade-up">
+        <div class="content-wrapper {{ Request::is('soal') ? 'ml-0 ' : '' }}"
+            style="color:#7a6960; font-family: Raleway, sans-serif; background-color:#fef8f5;">
+            <div class="container pt-5 " data-aos="fade-up">
 
 
                 @yield('content')

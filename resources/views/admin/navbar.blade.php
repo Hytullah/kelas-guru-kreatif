@@ -1,4 +1,4 @@
-<nav class="main-header navbar navbar-expand navbar-white navbar-light"
+<nav class="main-header navbar navbar-expand navbar-white navbar-light" id="navbar"
     style="background-color: #ef7f4d; font-family: Raleway, sans-serif;">
 
     <ul class="navbar-nav">
@@ -17,6 +17,11 @@
                 <a href="{{ url('dashboard') }}" class="nav-link" style="color:white;">Home</a>
             </li>
         @elseif (Auth::check() && Auth::user()->role === 'user')
+            <li class="nav-item
+                    d-none d-sm-inline-block">
+                <a href="{{ url('beranda') }}" class="nav-link" style="color:white;">Home</a>
+            </li>
+        @elseif (Auth::check() && Auth::user()->role === 'user_guru')
             <li class="nav-item
                     d-none d-sm-inline-block">
                 <a href="{{ url('beranda') }}" class="nav-link" style="color:white;">Home</a>

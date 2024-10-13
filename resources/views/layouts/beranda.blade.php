@@ -25,16 +25,35 @@
             <div class="row">
                 <div class="col-lg-3 col-6">
 
-                    <div class="small-box bg-info">
-                        <div class="inner">
-                            <h3>1</h3>
-                            <p>PPPK</p>
+                    @if (auth()->user()->role === 'user')
+                        <div class="small-box bg-info">
+                            <div class="inner">
+                                <h3>2</h3>
+                                <p>PPPK</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-"></i>
+                            </div>
+                            <a href="{{ url('table') }}" class="small-box-footer"><i
+                                    class="fas fa-arrow-circle-right"></i></a>
                         </div>
-                        <div class="icon">
-                            <i class="ion ion-"></i>
+                    @endif
+
+
+                    @if (auth()->user()->role === 'user_guru')
+                        <div class="small-box bg-info">
+                            <div class="inner">
+                                <h3>1</h3>
+                                <p>Tenaga Teknis</p>
+                            </div>
+                            <div class="icon">
+                                <i class="ion ion-"></i>
+                            </div>
+                            {{-- <a href="{{ route('') }}">Paket 3 (Teknis)</a> --}}
+                            <a href="{{ url('table') }}" class="small-box-footer"><i
+                                    class="fas fa-arrow-circle-right"></i></a>
                         </div>
-                        <a href="{{ url('table') }}" class="small-box-footer"><i class="fas fa-arrow-circle-right"></i></a>
-                    </div>
+                    @endif
                 </div>
 
                 {{-- <div class="col-lg-3 col-6">
